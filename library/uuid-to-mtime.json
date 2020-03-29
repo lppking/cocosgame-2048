@@ -465,8 +465,8 @@
     "relativePath": "scenes/game.fire"
   },
   "22630bba-3252-4f5c-b6e6-e0948ed95674": {
-    "asset": 1585479442488,
-    "meta": 1585479442497,
+    "asset": 1585483801080,
+    "meta": 1585483801086,
     "relativePath": "prefabs/block.prefab"
   },
   "ad802fb5-fb6c-40c1-8904-9041e4ce6978": {
@@ -474,19 +474,19 @@
     "meta": 1585478112680,
     "relativePath": "scripts/commons"
   },
-  "e5f6f069-b339-4d38-a61e-cc3d6a85c271": {
-    "asset": 1585479684350,
-    "meta": 1585479687988,
-    "relativePath": "scripts/block.ts"
-  },
   "c725f6d3-1f7d-4396-9264-ac0d1c492766": {
     "asset": 1585479654596,
     "meta": 1585479688014,
     "relativePath": "scripts/commons/constants.ts"
   },
+  "e5f6f069-b339-4d38-a61e-cc3d6a85c271": {
+    "asset": 1585483948598,
+    "meta": 1585484120714,
+    "relativePath": "scripts/block.ts"
+  },
   "48d25ffa-b079-4d34-a6f9-7bc4918adab2": {
-    "asset": 1585481138445,
-    "meta": 1585481171583,
+    "asset": 1585484111351,
+    "meta": 1585484120714,
     "relativePath": "scripts/game.ts"
   }
 }

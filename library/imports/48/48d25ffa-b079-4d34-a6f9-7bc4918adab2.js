@@ -35,20 +35,70 @@ var Game = /** @class */ (function (_super) {
         _this.blockGap = 20;
         _this.bgNode = null;
         _this._blockSize = 0;
+        // 维护每一块的位置
         _this._blocksPos = new Array();
+        // 维护每一块的节点
+        _this._blocksNodes = new Array();
+        /**
+         * @description: 初始化页面
+         */
+        _this.init = function () {
+            _this.initScore();
+            if (_this._blocksNodes.length > 0) {
+                _this.resetBlocks();
+            }
+            else {
+                _this.initBlocks();
+            }
+        };
+        /**
+         * @description: 初始化分数
+         */
+        _this.initScore = function () {
+            _this.setScore(0);
+        };
+        /**
+         * @description: 初始化色块
+         */
         _this.initBlocks = function () {
             _this._blockSize = (cc.winSize.width - _this.blockGap * 5) / 4;
             constants_1.BLOCK_ARRAY.forEach(function (itemArray, indexOut) {
                 _this._blocksPos[indexOut] = [];
+                _this._blocksNodes[indexOut] = [];
                 var blockPosY = _this._blockSize * (indexOut + 1) + _this.blockGap * indexOut;
                 itemArray.forEach(function (item, indexInner) {
                     var blockPosX = _this.blockGap * (indexInner + 1) + _this._blockSize * (indexInner + 0.5);
                     _this._blocksPos[indexOut][indexInner] = cc.v2(blockPosX, blockPosY);
-                    _this.drawBlockPrefab(blockPosX, blockPosY);
+                    _this._blocksNodes[indexOut][indexInner] = _this.drawBlockPrefab(blockPosX, blockPosY);
                 });
             });
             cc.log(_this._blocksPos);
+            cc.log(_this._blocksNodes);
         };
+        /**
+         * @description: 重置所有块为初始化状态
+         */
+        _this.resetBlocks = function () {
+            _this._blocksNodes && _this._blocksNodes.forEach(function (item) {
+                item.forEach(function (node) {
+                    var comp = node.getComponent('block');
+                    comp._number > 0 && comp.setNumber(0);
+                });
+            });
+        };
+        /**
+         * @description: 更新分数方法
+         * @param score: 分数值
+         */
+        _this.setScore = function (score) {
+            _this.score = score;
+            _this.scoreLabel.string = "\u5206\u6570\uFF1A" + score;
+        };
+        /**
+         * @description: 单个色块的生成函数
+         * @param blockPosX: 单个色块的横坐标
+         * @param blockPosY: 单个色块的纵坐标
+         */
         _this.drawBlockPrefab = function (blockPosX, blockPosY) {
             var block = cc.instantiate(_this.blockPrefab);
             block.width = _this._blockSize;
@@ -56,11 +106,12 @@ var Game = /** @class */ (function (_super) {
             block.setPosition(cc.v2(blockPosX, blockPosY));
             _this.bgNode.addChild(block);
             block.getComponent('block').setNumber(0);
+            return block;
         };
         return _this;
     }
     Game.prototype.start = function () {
-        this.initBlocks();
+        this.init();
     };
     __decorate([
         property({

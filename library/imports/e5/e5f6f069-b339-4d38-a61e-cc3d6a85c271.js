@@ -30,8 +30,12 @@ var NewClass = /** @class */ (function (_super) {
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.numberLabel = null;
+        _this._number = 0;
         _this.setNumber = function (val) {
             if (val === void 0) { val = 0; }
+            if (_this._number === val)
+                return;
+            _this._number = val;
             if (val === 0) {
                 _this.numberLabel.node.active = false;
             }
@@ -45,6 +49,9 @@ var NewClass = /** @class */ (function (_super) {
     __decorate([
         property(cc.Label)
     ], NewClass.prototype, "numberLabel", void 0);
+    __decorate([
+        property(cc.Integer)
+    ], NewClass.prototype, "_number", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);
