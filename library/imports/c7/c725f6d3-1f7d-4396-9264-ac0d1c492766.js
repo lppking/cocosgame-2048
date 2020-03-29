@@ -27,5 +27,10 @@ exports.COLORS_WITH_NUMBER = COLORS_WITH_NUMBER;
  */
 var BLOCK_ARRAY = [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]];
 exports.BLOCK_ARRAY = BLOCK_ARRAY;
+/**
+ * @description: 允许初始块展示的数字
+ */
+var INIT_NUMBERS = [2, 4];
+exports.INIT_NUMBERS = INIT_NUMBERS;
 
 cc._RF.pop();

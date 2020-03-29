@@ -474,19 +474,24 @@
     "meta": 1585478112680,
     "relativePath": "scripts/commons"
   },
-  "c725f6d3-1f7d-4396-9264-ac0d1c492766": {
-    "asset": 1585479654596,
-    "meta": 1585479688014,
-    "relativePath": "scripts/commons/constants.ts"
-  },
   "e5f6f069-b339-4d38-a61e-cc3d6a85c271": {
     "asset": 1585483948598,
-    "meta": 1585484120714,
+    "meta": 1585486451997,
     "relativePath": "scripts/block.ts"
   },
+  "c725f6d3-1f7d-4396-9264-ac0d1c492766": {
+    "asset": 1585484940960,
+    "meta": 1585486452002,
+    "relativePath": "scripts/commons/constants.ts"
+  },
+  "175f43eb-360a-4ff7-931c-f598bf76ccc7": {
+    "asset": 1585486396610,
+    "meta": 1585486452053,
+    "relativePath": "scripts/commons/utils.ts"
+  },
   "48d25ffa-b079-4d34-a6f9-7bc4918adab2": {
-    "asset": 1585484111351,
-    "meta": 1585484120714,
+    "asset": 1585486449593,
+    "meta": 1585486452053,
     "relativePath": "scripts/game.ts"
   }
 }

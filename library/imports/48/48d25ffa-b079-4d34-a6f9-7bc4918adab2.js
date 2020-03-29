@@ -25,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var constants_1 = require("./commons/constants");
+var utils_1 = require("./commons/utils");
 var Game = /** @class */ (function (_super) {
     __extends(Game, _super);
     function Game() {
@@ -34,6 +35,7 @@ var Game = /** @class */ (function (_super) {
         _this.blockPrefab = null;
         _this.blockGap = 20;
         _this.bgNode = null;
+        _this.initNumberBlocksCounts = 3;
         _this._blockSize = 0;
         // 维护每一块的位置
         _this._blocksPos = new Array();
@@ -49,6 +51,17 @@ var Game = /** @class */ (function (_super) {
             }
             else {
                 _this.initBlocks();
+            }
+            _this.initNumberBlocks();
+        };
+        /**
+         * @description: 初始化带数字的块
+         */
+        _this.initNumberBlocks = function () {
+            var emptyBlocks = _this.findEmptyBlocks();
+            for (var i = 0; i < _this.initNumberBlocksCounts; i++) {
+                var removeItemIndex = _this.addNumberBlock(emptyBlocks);
+                emptyBlocks.splice(removeItemIndex, 1);
             }
         };
         /**
@@ -87,6 +100,17 @@ var Game = /** @class */ (function (_super) {
             });
         };
         /**
+         * @description: 添加数字不为0的块
+         * @param emptyBlocks: 空节点数组列表
+         * @returns 本次被占用的空节点的下标
+         */
+        _this.addNumberBlock = function (emptyBlocks) {
+            var removeItemIndex = utils_1.randomRangeInt(0, emptyBlocks.length);
+            var node = emptyBlocks[removeItemIndex];
+            node.getComponent('block').setNumber(constants_1.INIT_NUMBERS[utils_1.randomRangeInt(0, constants_1.INIT_NUMBERS.length)]);
+            return removeItemIndex;
+        };
+        /**
          * @description: 更新分数方法
          * @param score: 分数值
          */
@@ -107,6 +131,21 @@ var Game = /** @class */ (function (_super) {
             _this.bgNode.addChild(block);
             block.getComponent('block').setNumber(0);
             return block;
+        };
+        /**
+         * @description: 返回当前数值为0的块组成的数组
+         */
+        _this.findEmptyBlocks = function () {
+            var emptyBlocksArray = [];
+            _this._blocksNodes.forEach(function (array) {
+                array.forEach(function (node) {
+                    var comp = node.getComponent('block');
+                    if (comp._number === 0) {
+                        emptyBlocksArray.push(node);
+                    }
+                });
+            });
+            return emptyBlocksArray;
         };
         return _this;
     }
@@ -131,6 +170,12 @@ var Game = /** @class */ (function (_super) {
     __decorate([
         property(cc.Node)
     ], Game.prototype, "bgNode", void 0);
+    __decorate([
+        property({
+            type: cc.Integer,
+            tooltip: '允许初始化带数字的块的个数'
+        })
+    ], Game.prototype, "initNumberBlocksCounts", void 0);
     Game = __decorate([
         ccclass
     ], Game);

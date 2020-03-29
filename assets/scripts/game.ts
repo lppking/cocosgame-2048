@@ -1,5 +1,6 @@
 const {ccclass, property} = cc._decorator;
-import { BLOCK_ARRAY } from './commons/constants';
+import { BLOCK_ARRAY, INIT_NUMBERS } from './commons/constants';
+import { randomRangeInt } from './commons/utils';
 
 @ccclass
 export default class Game extends cc.Component {
@@ -22,6 +23,12 @@ export default class Game extends cc.Component {
     @property(cc.Node)
     public bgNode:cc.Node = null;
 
+    @property({
+        type: cc.Integer,
+        tooltip: '允许初始化带数字的块的个数'
+    })
+    public initNumberBlocksCounts:number = 3;
+
     private _blockSize:number = 0;
 
     // 维护每一块的位置
@@ -42,6 +49,18 @@ export default class Game extends cc.Component {
             this.resetBlocks();
         } else {
             this.initBlocks();
+        }
+        this.initNumberBlocks();
+    }
+
+    /**
+     * @description: 初始化带数字的块
+     */
+    private initNumberBlocks = () => {
+        const emptyBlocks: Array<cc.Node> = this.findEmptyBlocks();
+        for (let i = 0; i < this.initNumberBlocksCounts; i++) {
+            const removeItemIndex = this.addNumberBlock(emptyBlocks);
+            emptyBlocks.splice(removeItemIndex, 1);
         }
     }
 
@@ -85,6 +104,18 @@ export default class Game extends cc.Component {
     }
 
     /**
+     * @description: 添加数字不为0的块
+     * @param emptyBlocks: 空节点数组列表
+     * @returns 本次被占用的空节点的下标
+     */
+    private addNumberBlock = (emptyBlocks: Array<cc.Node>):number => {
+        const removeItemIndex = randomRangeInt(0, emptyBlocks.length);
+        const node = emptyBlocks[removeItemIndex];
+        node.getComponent('block').setNumber(INIT_NUMBERS[randomRangeInt(0, INIT_NUMBERS.length)]);
+        return removeItemIndex;
+    }
+
+    /**
      * @description: 更新分数方法
      * @param score: 分数值
      */
@@ -106,6 +137,22 @@ export default class Game extends cc.Component {
         this.bgNode.addChild(block);
         block.getComponent('block').setNumber(0);
         return block;
+    }
+
+    /**
+     * @description: 返回当前数值为0的块组成的数组
+     */
+    private findEmptyBlocks = ():Array<cc.Node> => {
+        const emptyBlocksArray:Array<cc.Node> = [];
+        this._blocksNodes.forEach(array => {
+            array.forEach(node => {
+                const comp = node.getComponent('block');
+                if (comp._number === 0) {
+                    emptyBlocksArray.push(node);
+                }
+            })
+        })
+        return emptyBlocksArray;
     }
 }
 

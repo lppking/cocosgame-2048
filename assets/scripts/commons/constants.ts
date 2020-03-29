@@ -21,7 +21,13 @@ const COLORS_WITH_NUMBER = {
  */
 const BLOCK_ARRAY = [[1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1]];
 
+/**
+ * @description: 允许初始块展示的数字
+ */
+const INIT_NUMBERS = [2, 4];
+
 export {
   COLORS_WITH_NUMBER,
-  BLOCK_ARRAY
+  BLOCK_ARRAY,
+  INIT_NUMBERS
 }
